@@ -1,5 +1,6 @@
 package com.uszkaisandor.core.presentation.ui
 
+import com.uszkaisandor.core.presentation.ui.R
 import com.uszkaisandor.core.domain.util.DataError
 
 fun DataError.asUiText(): UiText {

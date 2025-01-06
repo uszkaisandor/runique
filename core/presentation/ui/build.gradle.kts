@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace = "com.plcoding.core.presentation.ui"
+    namespace = "com.uszkaisandor.core.presentation.ui"
 }
 
 dependencies {
