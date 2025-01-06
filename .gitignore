@@ -16,6 +16,9 @@ captures/
 output.json
 
 # IntelliJ
+.kotlin/
+
+# IntelliJ
 *.iml
 .idea/
 misc.xml
