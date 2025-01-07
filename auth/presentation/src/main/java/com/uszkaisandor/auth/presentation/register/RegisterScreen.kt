@@ -140,7 +140,7 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
                 text = stringResource(R.string.at_least_one_number),
-                isValid = state.passwordValidationState.hasNumber
+                isValid = state.passwordValidationState.hasDigit
             )
             Spacer(modifier = Modifier.height(4.dp))
             PasswordRequirement(
