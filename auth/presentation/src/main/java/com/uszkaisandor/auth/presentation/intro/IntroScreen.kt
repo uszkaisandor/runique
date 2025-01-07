@@ -95,7 +95,7 @@ private fun RuniqueLogoVertical(
     modifier: Modifier = Modifier
 ) {
     Column(
-        modifier = Modifier,
+        modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
