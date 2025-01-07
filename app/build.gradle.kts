@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.plcoding.runique"
+    namespace = "com.uszkaisandor.runique"
 
     defaultConfig {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -75,5 +75,4 @@ dependencies {
     implementation(projects.run.data)
     implementation(projects.run.location)
     implementation(projects.run.network)
-
 }
