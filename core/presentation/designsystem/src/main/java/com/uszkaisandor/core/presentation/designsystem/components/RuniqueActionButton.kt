@@ -1,4 +1,4 @@
-package com.uszkaisandor.core.presentation.components
+package com.uszkaisandor.core.presentation.designsystem.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Box

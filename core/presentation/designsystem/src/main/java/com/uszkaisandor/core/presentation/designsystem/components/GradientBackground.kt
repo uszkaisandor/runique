@@ -1,4 +1,4 @@
-package com.uszkaisandor.core.presentation.components
+package com.uszkaisandor.core.presentation.designsystem.components
 
 import android.os.Build
 import androidx.compose.foundation.background

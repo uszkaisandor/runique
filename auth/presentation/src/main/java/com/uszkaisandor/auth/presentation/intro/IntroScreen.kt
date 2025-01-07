@@ -18,9 +18,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.uszkaisandor.auth.presentation.R
-import com.uszkaisandor.core.presentation.components.GradientBackground
-import com.uszkaisandor.core.presentation.components.RuniqueActionButton
-import com.uszkaisandor.core.presentation.components.RuniqueOutlinedActionButton
+import com.uszkaisandor.core.presentation.designsystem.components.GradientBackground
+import com.uszkaisandor.core.presentation.designsystem.components.RuniqueActionButton
+import com.uszkaisandor.core.presentation.designsystem.components.RuniqueOutlinedActionButton
 import com.uszkaisandor.core.presentation.designsystem.LogoIcon
 import com.uszkaisandor.core.presentation.designsystem.RuniqueTheme
 
