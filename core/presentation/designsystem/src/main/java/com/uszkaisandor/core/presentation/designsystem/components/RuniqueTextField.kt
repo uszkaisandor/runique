@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalFoundationApi::class)
+
 package com.uszkaisandor.core.presentation.designsystem.components
 
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -58,39 +60,41 @@ fun RuniqueTextField(
     var isFocused by remember {
         mutableStateOf(false)
     }
-    Column(modifier = modifier) {
+    Column(
+        modifier = modifier
+    ) {
         Row(
             modifier = Modifier
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
-            title?.let {
+            if (title != null) {
                 Text(
-                    text = it,
+                    text = title,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }
-            error?.let {
+            if (error != null) {
                 Text(
-                    text = it,
+                    text = error,
                     color = MaterialTheme.colorScheme.error,
                     fontSize = 12.sp
                 )
-            } ?: run {
-                additionalInfo?.let {
-                    Text(
-                        text = it,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                        fontSize = 12.sp
-                    )
-                }
+            } else if (additionalInfo != null) {
+                Text(
+                    text = additionalInfo,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
+                    fontSize = 12.sp
+                )
             }
         }
         Spacer(modifier = Modifier.height(4.dp))
         BasicTextField2(
             state = state,
-            textStyle = LocalTextStyle.current.copy(color = MaterialTheme.colorScheme.onBackground),
+            textStyle = LocalTextStyle.current.copy(
+                color = MaterialTheme.colorScheme.onBackground
+            ),
             keyboardOptions = KeyboardOptions(
                 keyboardType = keyboardType
             ),
@@ -100,7 +104,9 @@ fun RuniqueTextField(
                 .clip(RoundedCornerShape(16.dp))
                 .background(
                     if (isFocused) {
-                        MaterialTheme.colorScheme.primary.copy(alpha = 0.85f)
+                        MaterialTheme.colorScheme.primary.copy(
+                            alpha = 0.05f
+                        )
                     } else {
                         MaterialTheme.colorScheme.surface
                     }
@@ -111,7 +117,8 @@ fun RuniqueTextField(
                         MaterialTheme.colorScheme.primary
                     } else {
                         Color.Transparent
-                    }
+                    },
+                    shape = RoundedCornerShape(16.dp)
                 )
                 .padding(12.dp)
                 .onFocusChanged {
@@ -119,38 +126,41 @@ fun RuniqueTextField(
                 },
             decorator = { innerBox ->
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    modifier = Modifier
+                        .fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    startIcon?.let {
+                    if (startIcon != null) {
                         Icon(
-                            imageVector = it,
+                            imageVector = startIcon,
                             contentDescription = null,
                             tint = MaterialTheme.colorScheme.onSurfaceVariant
                         )
                         Spacer(modifier = Modifier.width(16.dp))
                     }
                     Box(
-                        modifier = Modifier.weight(1f)
+                        modifier = Modifier
+                            .weight(1f)
                     ) {
                         if (state.text.isEmpty() && !isFocused) {
                             Text(
-                                modifier = Modifier.fillMaxWidth(),
                                 text = hint,
                                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(
                                     alpha = 0.4f
-                                )
+                                ),
+                                modifier = Modifier.fillMaxWidth()
                             )
                         }
                         innerBox()
                     }
-                    endIcon?.let {
+                    if (endIcon != null) {
                         Spacer(modifier = Modifier.width(16.dp))
                         Icon(
-                            modifier = Modifier.padding(8.dp),
-                            imageVector = it,
+                            imageVector = endIcon,
                             contentDescription = null,
-                            tint = MaterialTheme.colorScheme.onSurfaceVariant
+                            tint = MaterialTheme.colorScheme.onSurfaceVariant,
+                            modifier = Modifier
+                                .padding(end = 8.dp)
                         )
                     }
                 }
@@ -159,7 +169,6 @@ fun RuniqueTextField(
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Preview
 @Composable
 private fun RuniqueTextFieldPreview() {
@@ -168,10 +177,11 @@ private fun RuniqueTextFieldPreview() {
             state = rememberTextFieldState(),
             startIcon = EmailIcon,
             endIcon = CheckIcon,
-            hint = "example@text.com",
+            hint = "example@test.com",
             title = "Email",
             additionalInfo = "Must be a valid email",
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxWidth()
         )
     }
 }
