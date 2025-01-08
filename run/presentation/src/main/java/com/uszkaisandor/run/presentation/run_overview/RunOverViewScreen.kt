@@ -13,13 +13,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.uszkaisandor.core.presentation.designsystem.components.RuniqueScaffold
 import com.uszkaisandor.core.presentation.designsystem.AnalyticsIcon
 import com.uszkaisandor.core.presentation.designsystem.LogoIcon
 import com.uszkaisandor.core.presentation.designsystem.LogoutIcon
 import com.uszkaisandor.core.presentation.designsystem.RunIcon
 import com.uszkaisandor.core.presentation.designsystem.RuniqueTheme
 import com.uszkaisandor.core.presentation.designsystem.components.RuniqueFloatingActionButton
+import com.uszkaisandor.core.presentation.designsystem.components.RuniqueScaffold
 import com.uszkaisandor.core.presentation.designsystem.components.RuniqueToolbar
 import com.uszkaisandor.core.presentation.designsystem.components.util.DropdownItem
 import com.uszkaisandor.run.presentation.R
@@ -27,10 +27,17 @@ import org.koin.androidx.compose.koinViewModel
 
 @Composable
 fun RunOverviewScreenRoot(
+    onStartRunClick: () -> Unit,
     viewModel: RunOverviewViewModel = koinViewModel(),
 ) {
     RunOverviewScreen(
-        onAction = viewModel::onAction
+        onAction = { action ->
+            when (action) {
+                RunOverviewAction.OnStartClick -> onStartRunClick()
+                else -> Unit
+            }
+            viewModel.onAction(action)
+        }
     )
 }
 
