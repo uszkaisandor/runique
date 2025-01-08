@@ -7,7 +7,7 @@ fun Location.toLocationWithAltitude(): LocationWithAltitude {
     return LocationWithAltitude(
         location = com.uszkaisandor.core.domain.location.Location(
             lat = latitude,
-            lng = longitude
+            long = longitude
         ),
         altitude = altitude
     )
