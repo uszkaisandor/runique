@@ -49,7 +49,6 @@ fun ActiveRunScreenRoot(
     )
 }
 
-
 @Composable
 private fun ActiveRunScreen(
     state: ActiveRunState,
@@ -101,7 +100,7 @@ private fun ActiveRunScreen(
             )
         )
 
-        if (!showLocationRationale && !showNotificationRationale) {
+        if(!showLocationRationale && !showNotificationRationale) {
             permissionLauncher.requestRuniquePermissions(context)
         }
     }
@@ -160,11 +159,9 @@ private fun ActiveRunScreen(
                 state.showLocationRationale && state.showNotificationRationale -> {
                     stringResource(id = R.string.location_notification_rationale)
                 }
-
                 state.showLocationRationale -> {
                     stringResource(id = R.string.location_rationale)
                 }
-
                 else -> {
                     stringResource(id = R.string.notification_rationale)
                 }
@@ -193,7 +190,7 @@ private fun ActivityResultLauncher<Array<String>>.requestRuniquePermissions(
         Manifest.permission.ACCESS_COARSE_LOCATION,
         Manifest.permission.ACCESS_FINE_LOCATION,
     )
-    val notificationPermission = if (Build.VERSION.SDK_INT >= 33) {
+    val notificationPermission = if(Build.VERSION.SDK_INT >= 33) {
         arrayOf(Manifest.permission.POST_NOTIFICATIONS)
     } else arrayOf()
 
@@ -201,7 +198,6 @@ private fun ActivityResultLauncher<Array<String>>.requestRuniquePermissions(
         !hasLocationPermission && !hasNotificationPermission -> {
             launch(locationPermissions + notificationPermission)
         }
-
         !hasLocationPermission -> launch(locationPermissions)
         !hasNotificationPermission -> launch(notificationPermission)
     }
