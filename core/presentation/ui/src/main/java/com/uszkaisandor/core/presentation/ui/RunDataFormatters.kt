@@ -19,6 +19,14 @@ fun Double.toFormattedKm(): String {
     return "${roundToDecimals(2)} km"
 }
 
+fun Double.toFormattedKmh(): String {
+    return "${roundToDecimals(1)} km/h"
+}
+
+fun Int.toFormattedMeters(): String {
+    return "$this m"
+}
+
 @SuppressLint("DefaultLocale")
 fun Duration.toFormattedPace(distanceKm: Double): String {
     if (this == Duration.ZERO || distanceKm <= 0.0) {
