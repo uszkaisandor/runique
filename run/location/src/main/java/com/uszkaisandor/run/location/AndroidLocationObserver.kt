@@ -25,7 +25,7 @@ class AndroidLocationObserver(
 
     private val client = LocationServices.getFusedLocationProviderClient(context)
 
-    override fun observerLocation(interval: Long): Flow<LocationWithAltitude> {
+    override fun observeLocation(interval: Long): Flow<LocationWithAltitude> {
         // Callback flow is a cold flow
         return callbackFlow {
             val locationManager = context.getSystemService<LocationManager>()!!

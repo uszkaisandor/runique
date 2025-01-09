@@ -62,13 +62,13 @@ fun TrackerMap(
     }
 
     LaunchedEffect(markerPosition, isRunFinished) {
-        if (!isRunFinished) {
+        if(!isRunFinished) {
             markerState.position = markerPosition
         }
     }
 
     LaunchedEffect(currentLocation, isRunFinished) {
-        if (currentLocation != null && !isRunFinished) {
+        if(currentLocation != null && !isRunFinished) {
             val latLng = LatLng(currentLocation.lat, currentLocation.long)
             cameraPositionState.animate(
                 CameraUpdateFactory.newLatLngZoom(latLng, 17f)
@@ -85,7 +85,9 @@ fun TrackerMap(
             zoomControlsEnabled = false
         )
     ) {
-        if (!isRunFinished && currentLocation != null) {
+        RuniquePolylines(locations = locations)
+
+        if(!isRunFinished && currentLocation != null) {
             MarkerComposable(
                 currentLocation,
                 state = markerState

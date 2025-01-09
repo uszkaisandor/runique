@@ -24,9 +24,8 @@ import kotlin.time.Duration.Companion.seconds
 
 class RunningTracker(
     private val locationObserver: LocationObserver,
-    applicationScope: CoroutineScope
+    private val applicationScope: CoroutineScope
 ) {
-
     private val _runData = MutableStateFlow(RunData())
     val runData = _runData.asStateFlow()
 
@@ -36,28 +35,38 @@ class RunningTracker(
     private val _elapsedTime = MutableStateFlow(Duration.ZERO)
     val elapsedTime = _elapsedTime.asStateFlow()
 
-
     val currentLocation = isObservingLocation
         .flatMapLatest { isObservingLocation ->
             if (isObservingLocation) {
-                locationObserver.observerLocation(1000L)
+                locationObserver.observeLocation(1000L)
             } else flowOf()
         }
         .stateIn(
-            scope = applicationScope,
-            started = SharingStarted.Lazily,
-            initialValue = null
+            applicationScope,
+            SharingStarted.Lazily,
+            null
         )
 
     init {
         isTracking
+            .onEach { isTracking ->
+                if (!isTracking) {
+                    val newList = buildList {
+                        addAll(runData.value.locations)
+                        add(emptyList<LocationTimestamp>())
+                    }
+                    _runData.update {
+                        it.copy(locations = newList)
+                    }
+                }
+            }
             .flatMapLatest { isTracking ->
                 if (isTracking) {
                     Timer.timeAndEmit()
                 } else flowOf()
             }
             .onEach {
-                _elapsedTime.value
+                _elapsedTime.value += it
             }
             .launchIn(applicationScope)
 
@@ -79,20 +88,18 @@ class RunningTracker(
                 val lastLocationsList = if (currentLocations.isNotEmpty()) {
                     currentLocations.last() + location
                 } else listOf(location)
-
                 val newLocationsList = currentLocations.replaceLast(lastLocationsList)
 
                 val distanceMeters = LocationDataCalculator.getTotalDistanceMeters(
                     locations = newLocationsList
                 )
-
-                val distanceInKm = distanceMeters / 1000.0
+                val distanceKm = distanceMeters / 1000.0
                 val currentDuration = location.durationTimestamp
 
-                val avgSecondsPerKm = if (distanceInKm == 0.0) {
+                val avgSecondsPerKm = if (distanceKm == 0.0) {
                     0
                 } else {
-                    (currentDuration.inWholeSeconds / distanceInKm).roundToInt()
+                    (currentDuration.inWholeSeconds / distanceKm).roundToInt()
                 }
 
                 _runData.update {
@@ -117,13 +124,11 @@ class RunningTracker(
     fun stopObservingLocation() {
         isObservingLocation.value = false
     }
-
 }
 
 private fun <T> List<List<T>>.replaceLast(replacement: List<T>): List<List<T>> {
-    return if (this.isEmpty()) {
-        listOf(replacement)
-    } else {
-        this.dropLast(1) + listOf(replacement)
+    if (this.isEmpty()) {
+        return listOf(replacement)
     }
+    return this.dropLast(1) + listOf(replacement)
 }
