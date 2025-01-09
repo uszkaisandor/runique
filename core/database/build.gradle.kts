@@ -8,6 +8,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.bundles.koin)
     implementation(libs.org.mongodb.bson)
 
     implementation(projects.core.domain)
