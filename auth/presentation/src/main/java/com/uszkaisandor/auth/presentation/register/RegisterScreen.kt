@@ -67,11 +67,13 @@ fun RegisterScreenRoot(
             RegisterEvent.RegistrationSuccess -> {
                 keyboardController?.hide()
                 Toast.makeText(context, R.string.registration_successful, Toast.LENGTH_LONG).show()
+                onSuccessfulRegistration()
             }
         }
     }
     RegisterScreen(
         state = viewModel.state,
+        onSignInClick = onSignInClick,
         onAction = viewModel::onAction
     )
 }
@@ -80,6 +82,7 @@ fun RegisterScreenRoot(
 @Composable
 fun RegisterScreen(
     state: RegisterState,
+    onSignInClick: () -> Unit,
     onAction: (RegisterAction) -> Unit
 ) {
     GradientBackground {
@@ -125,7 +128,7 @@ fun RegisterScreen(
                         start = offset,
                         end = offset
                     ).firstOrNull()?.let {
-                        onAction(RegisterAction.OnLoginClick)
+                        onSignInClick()
                     }
                 }
             )
@@ -213,6 +216,7 @@ private fun RegisterScreenPreview() {
     RuniqueTheme {
         RegisterScreen(
             state = RegisterState(),
+            onSignInClick = {},
             onAction = {}
         )
     }
