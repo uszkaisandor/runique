@@ -116,10 +116,7 @@ private fun NavGraphBuilder.runGraph(navController: NavHostController) {
                         )
                     } else {
                         context.startService(
-                            ActiveRunService.createStartIntent(
-                                context,
-                                activityClass = MainActivity::class.java
-                            )
+                            ActiveRunService.createStopIntent(context = context,)
                         )
                     }
                 }
