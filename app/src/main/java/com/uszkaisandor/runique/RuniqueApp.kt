@@ -4,13 +4,17 @@ import android.app.Application
 import com.uszkaisandor.auth.data.di.authDataModule
 import com.uszkaisandor.auth.presentation.di.authViewModelModule
 import com.uszkaisandor.core.data.di.coreDataModule
+import com.uszkaisandor.core.database.di.databaseModule
+import com.uszkaisandor.run.data.di.runDataModule
 import com.uszkaisandor.run.location.di.locationModule
+import com.uszkaisandor.run.network.di.networkModule
 import com.uszkaisandor.run.presentation.di.runPresentationModule
 import com.uszkaisandor.runique.di.appModule
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
+import org.koin.androidx.workmanager.koin.workManagerFactory
 import org.koin.core.context.startKoin
 import timber.log.Timber
 
@@ -27,13 +31,17 @@ class RuniqueApp : Application() {
         startKoin {
             androidLogger()
             androidContext(this@RuniqueApp)
+            workManagerFactory()
             modules(
                 authDataModule,
                 authViewModelModule,
                 appModule,
                 coreDataModule,
                 runPresentationModule,
-                locationModule
+                locationModule,
+                databaseModule,
+                networkModule,
+                runDataModule
             )
         }
     }

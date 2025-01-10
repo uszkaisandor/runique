@@ -1,2 +1,2 @@
 # runique
-Running tracker application with WearOS support
+Multi-module MVVM running tracker application
