@@ -22,6 +22,8 @@ dependencyResolutionManagement {
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
+gradle.startParameter.excludedTaskNames.addAll(listOf(":build-logic:convention:testClasses"))
+
 rootProject.name = "Runique"
 include(":app")
 include(":auth:data")
@@ -37,3 +39,7 @@ include(":run:domain")
 include(":run:presentation")
 include(":run:location")
 include(":run:network")
+include(":analytics:data")
+include(":analytics:presentation")
+include(":analytics:domain")
+include(":analytics:analytics_feature")

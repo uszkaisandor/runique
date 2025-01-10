@@ -2,7 +2,7 @@
 agp = "8.2.2"
 androidTools = "31.2.2"
 core = "1.10.3"
-playCore = "1.10.3"
+featureDelivery = "2.1.0"
 coreSplashscreen = "1.0.1"
 coilCompose = "2.6.0"
 composeCompiler = "1.5.9"
@@ -15,7 +15,6 @@ espressoCore = "3.5.1"
 activityCompose = "1.8.2"
 ktor = "2.3.8"
 ktorClientLogging = "2.3.8"
-ktorServerCallLogging = "2.3.7"
 koin = "3.5.3"
 lifecycleRuntimeKtx = "2.7.0"
 composeBom = "2024.02.02"
@@ -56,8 +55,8 @@ androidx-material-icons-extended = { module = "androidx.compose.material:materia
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
 androidx-security-crypto-ktx = { module = "androidx.security:security-crypto-ktx", version.ref = "securityCryptoKtx" }
 coil-compose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
-core = { module = "com.google.android.play:core", version.ref = "playCore" }
-core-testing = { module = "com.google.android.play:core-testing", version.ref = "playCore" }
+feature-delivery = { module = "com.google.android.play:feature-delivery", version.ref = "featureDelivery" }
+feature-delivery-ktx = { module = "com.google.android.play:feature-delivery-ktx", version.ref = "featureDelivery" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization"}
 kotlinx-coroutines-core = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines"}
 kotlinx-coroutines-play-services = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-play-services", version.ref = "coroutines"}
@@ -125,6 +124,7 @@ runique-android-feature-ui = { id = "runique.android.feature.ui", version = "uns
 runique-android-room = { id = "runique.android.room", version = "unspecified" }
 runique-jvm-library = { id = "runique.jvm.library", version = "unspecified" }
 runique-jvm-ktor = { id = "runique.jvm.ktor", version = "unspecified" }
+runique-android-dynamic-feature = { id = "runique.android.dynamic.feature", version = "unspecified" }
 
 [bundles]
 compose = [

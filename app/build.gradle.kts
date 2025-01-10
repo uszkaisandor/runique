@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.runique.android.application.compose)
-    alias(libs.plugins.mapsplatform.secrets.plugin)
     alias(libs.plugins.runique.jvm.ktor)
 }
 
@@ -18,6 +17,7 @@ android {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
+    dynamicFeatures += setOf(":analytics:analytics_feature")
 }
 
 dependencies {
@@ -42,7 +42,8 @@ dependencies {
     // Crypto
     implementation(libs.androidx.security.crypto.ktx)
 
-    api(libs.core)
+    api(libs.feature.delivery)
+    api(libs.feature.delivery.ktx)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -75,4 +76,6 @@ dependencies {
     implementation(projects.run.data)
     implementation(projects.run.location)
     implementation(projects.run.network)
+
+    implementation(libs.bundles.koin)
 }
