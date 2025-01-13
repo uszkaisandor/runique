@@ -10,7 +10,7 @@ import org.gradle.kotlin.dsl.withType
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 internal fun Project.configureKotlinAndroid(
-    commonExtension: CommonExtension<*, *, *, *, *>
+    commonExtension: CommonExtension<*, *, *, *, *, *>
 ) {
     commonExtension.apply {
         compileSdk = libs.findVersion("projectCompileSdkVersion").get().toString().toInt()
@@ -30,8 +30,8 @@ internal fun Project.configureKotlinAndroid(
     }
 }
 
-internal fun Project.configureKotlinJvm(){
-    extensions.configure<JavaPluginExtension>{
+internal fun Project.configureKotlinJvm() {
+    extensions.configure<JavaPluginExtension> {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }

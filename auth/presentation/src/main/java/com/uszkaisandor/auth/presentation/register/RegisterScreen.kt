@@ -1,9 +1,6 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
-
 package com.uszkaisandor.auth.presentation.register
 
 import android.widget.Toast
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -14,6 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.ClickableText
+import androidx.compose.foundation.text.input.rememberTextFieldState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -78,7 +76,6 @@ fun RegisterScreenRoot(
     )
 }
 
-@OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun RegisterScreen(
     state: RegisterState,
@@ -135,7 +132,7 @@ fun RegisterScreen(
             Spacer(modifier = Modifier.height(48.dp))
             RuniqueTextField(
                 modifier = Modifier.fillMaxWidth(),
-                state = state.email,
+                state = rememberTextFieldState(),
                 startIcon = EmailIcon,
                 endIcon = if (state.isEmailValid) CheckIcon else null,
                 hint = stringResource(R.string.example_email),
@@ -145,7 +142,7 @@ fun RegisterScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             RuniquePasswordTextField(
-                state = state.password,
+                state = rememberTextFieldState(),
                 isPasswordVisible = state.isPasswordVisible,
                 onTogglePasswordVisibility = {
                     onAction(RegisterAction.OnTogglePasswordVisibilityClick)

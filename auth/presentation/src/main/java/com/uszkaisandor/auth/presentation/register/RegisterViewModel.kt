@@ -1,13 +1,9 @@
-@file:Suppress("OPT_IN_USAGE_FUTURE_ERROR")
-@file:OptIn(ExperimentalFoundationApi::class)
-
 package com.uszkaisandor.auth.presentation.register
 
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.text2.input.textAsFlow
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.uszkaisandor.auth.domain.AuthRepository
@@ -18,12 +14,13 @@ import com.uszkaisandor.core.domain.util.Result
 import com.uszkaisandor.core.presentation.ui.UiText
 import com.uszkaisandor.core.presentation.ui.asUiText
 import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
-@Suppress("OPT_IN_USAGE_FUTURE_ERROR")
 class RegisterViewModel(
     private val userDataValidator: UserDataValidator,
     private val authRepository: AuthRepository
@@ -35,20 +32,27 @@ class RegisterViewModel(
     private val eventChannel = Channel<RegisterEvent>()
     val events = eventChannel.receiveAsFlow()
 
+    private val email = snapshotFlow {
+        state.email.text
+    }.stateIn(viewModelScope, SharingStarted.Lazily, state.email.text)
+
+    private val password = snapshotFlow {
+        state.password.text
+    }.stateIn(viewModelScope, SharingStarted.Lazily, state.password.text)
+
     init {
-        state.email.textAsFlow()
-            .onEach { email ->
-                val isValidEmail = userDataValidator.isValidEmail(email.toString())
-                state = state.copy(
-                    isEmailValid = userDataValidator.isValidEmail(email.toString()),
-                    canRegister = isValidEmail
-                            && state.passwordValidationState.isValidPassword
-                            && !state.isRegistering
-                )
-            }
+        email.onEach { email ->
+            val isValidEmail = userDataValidator.isValidEmail(email.toString())
+            state = state.copy(
+                isEmailValid = userDataValidator.isValidEmail(email.toString()),
+                canRegister = isValidEmail
+                        && state.passwordValidationState.isValidPassword
+                        && !state.isRegistering
+            )
+        }
             .launchIn(viewModelScope)
 
-        state.password.textAsFlow()
+        password
             .onEach { password ->
                 val passwordValidationState = userDataValidator.validatePassword(password.toString())
                 state = state.copy(
